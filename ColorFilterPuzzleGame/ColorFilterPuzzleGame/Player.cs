@@ -20,7 +20,7 @@ namespace ColorFilterPuzzleGame
         public const int TEST_GROUND_Y = 600;
         public const float GRAVITY = 7;
         public const float JUMP_SPEED = -7;
-        public const float MAX_JUMP_HEIGHT = 80;
+        public const float MAX_JUMP_HEIGHT = 800;
         public const int WINDOW_HEIGHT = 768;
 
         public Texture2D Image { get; private set; }
@@ -64,11 +64,55 @@ namespace ColorFilterPuzzleGame
         {
             KeyboardState keyState = Keyboard.GetState();
 
+            Vector2 v = new Vector2(0, GRAVITY);
+            Platform theCollision;
+            ImmediateCollisions(risks, v, out theCollision);
+            if (theCollision == null)
+            {
+                // No coming collisions
+            }
+            else
+            {
+                v = new Vector2(0, 0);
+                if (v.Y == 0) jumpTravel = 0;
+            }
 
-            // (-Y) == upwards (+Y) == downwards
+            // Overrides gravity
+            if (keyState.IsKeyDown(Keys.Up) && !jumping)
+            {
+                // Vertical-Above Collision Here
+                if (jumpTravel >= MAX_JUMP_HEIGHT) jumping = true;
+                if (jumpTravel < MAX_JUMP_HEIGHT)
+                {
+                    v = new Vector2(0, JUMP_SPEED);
+                    jumpTravel += Math.Abs(JUMP_SPEED);
+                }
+            }
+
+            if (keyState.IsKeyUp(Keys.Up))
+            {
+                jumping = false;
+            }            
+
+            if (keyState.IsKeyDown(Keys.Left))
+            {
+                // Horizontal-Left Collision Here
+                float dx = 5;
+                v = new Vector2(v.X - dx, v.Y);
+            }
+            else if (keyState.IsKeyDown(Keys.Right))
+            {
+                // Horizontal-Right Collision Here
+                float dx = 5;
+                v = new Vector2(v.X + dx, v.Y);
+            }
+
+            Location = new Vector2(Location.X + v.X, Location.Y + v.Y);
+
+            /*// (-Y) == upwards (+Y) == downwards
             float dy = GRAVITY;
             float platformY = CollisionFall(risks, dy);
-            if (Bottom + dy >= platformY)
+            if (Bottom + dy >= platformY && Bottom < platformY)
             {
                 dy = platformY - Bottom;
             }
@@ -76,22 +120,7 @@ namespace ColorFilterPuzzleGame
             Vector2 velocity = new Vector2(0, dy);
 
 
-            // Overrides gravity
-            if (keyState.IsKeyDown(Keys.Up) && !jumping)
-            {   
-                // Vertical-Above Collision Here
-                if (jumpTravel >= MAX_JUMP_HEIGHT) jumping = true;
-                if (jumpTravel < MAX_JUMP_HEIGHT)
-                {
-                    velocity = new Vector2(0, JUMP_SPEED);
-                    jumpTravel += Math.Abs(JUMP_SPEED);
-                }
-            }
-            
-            if (keyState.IsKeyUp(Keys.Up))
-            {
-                jumping = false;
-            }
+
 
             //---------------------------------------
             if (keyState.IsKeyDown(Keys.Left))
@@ -106,7 +135,21 @@ namespace ColorFilterPuzzleGame
                 float dx = 5;
                 velocity = new Vector2(velocity.X + dx, velocity.Y);
             }
-            Location = new Vector2(Location.X + velocity.X, Location.Y + velocity.Y);
+            Location = new Vector2(Location.X + velocity.X, Location.Y + velocity.Y);*/
+        }
+
+        private void ImmediateCollisions(Platform[] risks, Vector2 v, out Platform theCollision)
+        {
+            theCollision = null;
+            foreach (Platform risk in risks)
+            {
+
+                    if((new Rectangle((int)(Left + v.X), (int)(Top + v.Y), Width, Height))
+                        .Intersects(new Rectangle((int)risk.X, (int)risk.Y, risk.Width, risk.Height))) 
+                    {
+                        theCollision = risk;
+                    }
+            }
         }
 
         private float CollisionFall(Platform[] risks, float dy)
@@ -114,7 +157,7 @@ namespace ColorFilterPuzzleGame
             foreach(Platform risk in risks) {
                 if (Right > risk.X && Left < risk.X + risk.Width)
                 {
-                    if (Bottom + dy >= risk.Y && Bottom < risk.Y) return risk.Y;
+                    if (Bottom + dy >= risk.Y) return risk.Y;
                 }
             }
             return WINDOW_HEIGHT;
