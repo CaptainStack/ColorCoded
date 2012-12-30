@@ -26,6 +26,7 @@ namespace ColorFilterPuzzleGame
         private Player thePlayer;
         bool playerJump;
         private Door end;
+        Platform[] platforms;
 
         public TheGame()
         {
@@ -58,7 +59,7 @@ namespace ColorFilterPuzzleGame
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Platform[] platforms = new Platform[3];
+            platforms = new Platform[3];
             platforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 10, 20);
             platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 100, 200);
             platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 500);
@@ -88,7 +89,6 @@ namespace ColorFilterPuzzleGame
             // Allows the game to exit
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
                 this.Exit();
-            Platform[] platforms = new Platform[2];
             thePlayer.Update(platforms);
             base.Update(gameTime);
         }
