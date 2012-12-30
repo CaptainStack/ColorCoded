@@ -17,10 +17,9 @@ namespace ColorFilterPuzzleGame
 {
     class Player
     {
-        public const int TEST_GROUND_Y = 600;
         public const float GRAVITY = 7;
         public const float JUMP_SPEED = -7;
-        public const float MAX_JUMP_HEIGHT = 300;
+        public const float MAX_JUMP_HEIGHT = 320;
         public const int WINDOW_HEIGHT = 768;
 
         public Texture2D Image { get; private set; }
@@ -33,6 +32,9 @@ namespace ColorFilterPuzzleGame
         public int Top { get { return (int)(Location.Y - (float)(Height / 2)); } }
         public int Bottom { get { return (int)(Location.Y + (float)(Height / 2)); } }
 
+        // Atlas info
+        private int Cols { get; set; }
+        private int curFrame;
 
         // Jumping info
 
@@ -42,6 +44,8 @@ namespace ColorFilterPuzzleGame
 
         public Player(Texture2D texture, Vector2 location)
         {
+            Cols = 6;
+            curFrame = 0;
             Location = location;
             Image = texture;
             jumpTravel = 0;
@@ -51,8 +55,10 @@ namespace ColorFilterPuzzleGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            Rectangle sourceRectangle = new Rectangle(0, 0, Width, Height);
-
+            int width = Image.Width / Cols;
+            int height = Image.Height;
+            int column = curFrame % Cols;
+            Rectangle sourceRectangle = new Rectangle(width * column, height, width, height);
 
             spriteBatch.Begin();
             spriteBatch.Draw(Image, Location, sourceRectangle, Color.White, (float)0, new Vector2(Width / 2, Height / 2), 1.0f, SpriteEffects.None, 1);
@@ -85,6 +91,16 @@ namespace ColorFilterPuzzleGame
                 if (jumpTravel < MAX_JUMP_HEIGHT)
                 {
                     v = new Vector2(0, JUMP_SPEED);
+                    ImmediateCollisions(risks, v, out theCollision);
+                    if (theCollision == null)
+                    {
+                        // No coming collisions
+                    }
+                    else
+                    {
+                        v = new Vector2(0, 0);
+                        jumpTravel = MAX_JUMP_HEIGHT;
+                    }
                     jumpTravel += Math.Abs(JUMP_SPEED);
                 }
             }
@@ -100,43 +116,38 @@ namespace ColorFilterPuzzleGame
                 // Horizontal-Left Collision Here
                 float dx = 5;
                 v = new Vector2(v.X - dx, v.Y);
+                ImmediateCollisions(risks, v, out theCollision);
+                if (theCollision == null)
+                {
+
+                }
+                else
+                {
+                    v = new Vector2(v.X + dx, v.Y);
+                }
+                curFrame++;
+                if (curFrame == Cols) curFrame = 0;
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
                 // Horizontal-Right Collision Here
                 float dx = 5;
                 v = new Vector2(v.X + dx, v.Y);
+                ImmediateCollisions(risks, v, out theCollision);
+                if (theCollision == null)
+                {
+
+                }
+                else
+                {
+                    v = new Vector2(v.X - dx, v.Y);
+                }
+                curFrame++;
+                if (curFrame == Cols) curFrame = 0;
             }
 
             Location = new Vector2(Location.X + v.X, Location.Y + v.Y);
 
-            /*// (-Y) == upwards (+Y) == downwards
-            float dy = GRAVITY;
-            float platformY = CollisionFall(risks, dy);
-            if (Bottom + dy >= platformY && Bottom < platformY)
-            {
-                dy = platformY - Bottom;
-            }
-            if (dy == 0) jumpTravel = 0; // Vertical-Below Collision Here
-            Vector2 velocity = new Vector2(0, dy);
-
-
-
-
-            //---------------------------------------
-            if (keyState.IsKeyDown(Keys.Left))
-            {
-                // Horizontal-Left Collision Here
-                float dx = 5;
-                velocity = new Vector2(velocity.X - dx, velocity.Y);
-            }
-            else if (keyState.IsKeyDown(Keys.Right))
-            {
-                // Horizontal-Right Collision Here
-                float dx = 5;
-                velocity = new Vector2(velocity.X + dx, velocity.Y);
-            }
-            Location = new Vector2(Location.X + velocity.X, Location.Y + velocity.Y);*/
         }
 
         private void ImmediateCollisions(Platform[] risks, Vector2 v, out Platform theCollision)
@@ -145,11 +156,12 @@ namespace ColorFilterPuzzleGame
             foreach (Platform risk in risks)
             {
 
-                    if((new Rectangle((int)(Left + v.X), (int)(Top + v.Y), Width, Height))
-                        .Intersects(new Rectangle((int)risk.X, (int)risk.Y, risk.Width, risk.Height))) 
-                    {
-                        theCollision = risk;
-                    }
+                if((new Rectangle((int)(Left + v.X), (int)(Top + v.Y), Width, Height))
+                    .Intersects(new Rectangle((int)risk.X, (int)risk.Y, risk.Width, risk.Height))) 
+                {
+                    theCollision = risk;
+                }
+
             }
         }
     }
