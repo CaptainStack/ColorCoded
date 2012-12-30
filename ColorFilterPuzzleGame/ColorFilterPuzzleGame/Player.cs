@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ColorFilterPuzzleGame
 {
-    class Player
+    public class Player
     {
         public const float GRAVITY = 7;
         public const float JUMP_SPEED = -7;
