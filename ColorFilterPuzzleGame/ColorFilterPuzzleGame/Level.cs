@@ -10,12 +10,10 @@ namespace ColorFilterPuzzleGame
     public class Level
     {
         private Texture2D Background { get; set; }
-        private Platform[] platforms;
-        private Door goal;
-        private Player myPlayer;
-
-        //Test Comment
+        public Platform[] platforms;
+        public Door goal;
         private Player thePlayer;
+        public Vector2 playerLocation;
 
         public Level(Texture2D background, Platform[] platform, Door door, Player p, Vector2 v)
         {
@@ -23,11 +21,12 @@ namespace ColorFilterPuzzleGame
             platforms = platform;
             goal = door;
             thePlayer = p;
+            playerLocation = v;
             thePlayer.Location = v;
         }
-        public void Initialize()
+        public void Start(Vector2 v)
         {
-
+            thePlayer.Location = v;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
@@ -43,6 +42,7 @@ namespace ColorFilterPuzzleGame
                 x.Draw(spriteBatch);
             }
             goal.draw(spriteBatch);
+            thePlayer.Draw(spriteBatch);
         }
     }
 }

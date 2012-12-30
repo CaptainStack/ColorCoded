@@ -25,13 +25,15 @@ namespace ColorFilterPuzzleGame
         private int currentLevel;
 
         private Level theLevel;
-        Player thePlayer;
+        private Player thePlayer;
         private Door end;
         private Platform[] platforms;
+        private bool canIncrease;
 
 
         public TheGame()
         {
+            levels = new Level[2];
             currentLevel = 0;
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferHeight = 768;
@@ -61,16 +63,26 @@ namespace ColorFilterPuzzleGame
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-
-            platforms = new Platform[4];
-            platforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 10, 20);
-            platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 100, 200);
-            platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 500);
-            platforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 1100, 600);
-            end = new Door(Content.Load<Texture2D>("Door"), 1300, 350);
-
             thePlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(600, 200));
-            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer, new Vector2(600, 200));      
+
+            //Level One
+            Platform[] onePlatforms = new Platform[4];
+            onePlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 50, 400);
+            onePlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
+            onePlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 400);
+            onePlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 750, 400);
+            levels[0] = new Level(Content.Load<Texture2D>("space"), onePlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 350), thePlayer, new Vector2(600, 200));
+            
+            //Level Two
+            Platform[] twoPlatforms = new Platform[3];
+            twoPlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 700);
+            twoPlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 900, 600);
+            twoPlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 800, 500);
+            levels[1] = new Level(Content.Load<Texture2D>("stars"), twoPlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 100), thePlayer, new Vector2(400, 100));
+                        
+            theLevel = levels[0];
+            end = levels[0].goal;
+            platforms = levels[0].platforms;
         }
 
         /// <summary>
@@ -89,22 +101,30 @@ namespace ColorFilterPuzzleGame
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
         {
-            // Allows the game to exit
-            if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed)
-                this.Exit();
             thePlayer.Update(platforms);
+
+            //Watch for the player to press E when on the door to advance to the next level
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.E))
             {
-                if(end.ImmediateCollision(thePlayer)){
-                    //Platform[] levelTwoPlatforms = new Platform[3];
-                    platforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 70, 30);
-                    platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 150);
-                    platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
-                    Door twoEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 100);
-                    theLevel = new Level(Content.Load<Texture2D>("stars"), platforms, twoEnd, thePlayer, new Vector2(400, 100));
+                if(end.ImmediateCollision(thePlayer)){                 
+                    if (canIncrease)
+                    {
+                        currentLevel++;
+                    }
+                    canIncrease = false;
+                    theLevel = levels[currentLevel];
+                    thePlayer.Location = theLevel.playerLocation;
+                    platforms = theLevel.platforms;
+                    end = theLevel.goal;
                 }
             }
+            if (keyState.IsKeyUp(Keys.E))
+            {
+                canIncrease = true;
+            }
+
+            //Exit the game by pressing Escape
             if(keyState.IsKeyDown(Keys.Escape))
             {
                 Exit();
@@ -121,7 +141,6 @@ namespace ColorFilterPuzzleGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
             theLevel.Draw(spriteBatch);
-            thePlayer.Draw(spriteBatch);
             base.Draw(gameTime);
         }
     }
