@@ -13,6 +13,26 @@ namespace ColorFilterPuzzleGame
         private int xPosition;
         private int yPosition;
 
+        public float X
+        {
+            get { return (float)xPosition; }
+        }
+
+        public float Y
+        {
+            get { return (float)yPosition; }
+        }
+
+        public int Width
+        {
+            get { return ThisPlatform.Width; }
+        }
+
+        public int Height
+        {
+            get { return ThisPlatform.Height; }
+        }
+
         public Platform(Texture2D platform, int xPosition, int yPosition)
         {
             ThisPlatform = platform;

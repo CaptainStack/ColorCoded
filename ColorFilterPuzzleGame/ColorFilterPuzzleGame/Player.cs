@@ -21,6 +21,7 @@ namespace ColorFilterPuzzleGame
         public const float GRAVITY = 7;
         public const float JUMP_SPEED = -7;
         public const float MAX_JUMP_HEIGHT = 80;
+        public const int WINDOW_HEIGHT = 768;
 
         public Texture2D Image { get; private set; }
         public Vector2 Location { get; private set; }
@@ -66,17 +67,19 @@ namespace ColorFilterPuzzleGame
 
             // (-Y) == upwards (+Y) == downwards
             float dy = GRAVITY;
-            if (Bottom + dy >= TEST_GROUND_Y)
+            float platformY = CollisionFall(risks, dy);
+            if (Bottom + dy >= platformY)
             {
-                dy = TEST_GROUND_Y - Bottom;
+                dy = platformY - Bottom;
             }
-            if (dy == 0) jumpTravel = 0;
+            if (dy == 0) jumpTravel = 0; // Vertical-Below Collision Here
             Vector2 velocity = new Vector2(0, dy);
 
 
             // Overrides gravity
             if (keyState.IsKeyDown(Keys.Up) && !jumping)
-            {
+            {   
+                // Vertical-Above Collision Here
                 if (jumpTravel >= MAX_JUMP_HEIGHT) jumping = true;
                 if (jumpTravel < MAX_JUMP_HEIGHT)
                 {
@@ -84,7 +87,7 @@ namespace ColorFilterPuzzleGame
                     jumpTravel += Math.Abs(JUMP_SPEED);
                 }
             }
-
+            
             if (keyState.IsKeyUp(Keys.Up))
             {
                 jumping = false;
@@ -93,42 +96,28 @@ namespace ColorFilterPuzzleGame
             //---------------------------------------
             if (keyState.IsKeyDown(Keys.Left))
             {
+                // Horizontal-Left Collision Here
                 float dx = 5;
                 velocity = new Vector2(velocity.X - dx, velocity.Y);
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
+                // Horizontal-Right Collision Here
                 float dx = 5;
                 velocity = new Vector2(velocity.X + dx, velocity.Y);
             }
             Location = new Vector2(Location.X + velocity.X, Location.Y + velocity.Y);
         }
 
-
-        private bool Fall(Platform[] risks)
+        private float CollisionFall(Platform[] risks, float dy)
         {
-            float dy = 7;
-            if (Bottom + dy >= TEST_GROUND_Y)
-            {
-                dy = TEST_GROUND_Y - Bottom;
+            foreach(Platform risk in risks) {
+                if (Right > risk.X && Left < risk.X + risk.Width)
+                {
+                    if (Bottom + dy >= risk.Y && Bottom < risk.Y) return risk.Y;
+                }
             }
-            Location = new Vector2(Location.X, Location.Y + dy);
-            if (dy == (float)0) return false;
-            return true;
+            return WINDOW_HEIGHT;
         }
-
-
-        private bool CanFall(Platform[] risks)
-        {
-            float dy = 7;
-            if (Bottom + dy >= TEST_GROUND_Y)
-            {
-                dy = TEST_GROUND_Y - Bottom;
-            }
-            if (dy == (float)0) return false;
-            return true;
-        }
-
-
     }
 }
