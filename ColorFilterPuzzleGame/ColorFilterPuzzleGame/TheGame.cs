@@ -99,6 +99,10 @@ namespace ColorFilterPuzzleGame
                 Door twoEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 100);
                 theLevel = new Level(Content.Load<Texture2D>("stars"), platforms, twoEnd, thePlayer, new Vector2(400, 400));
             }
+            if(keyState.IsKeyDown(Keys.Escape))
+            {
+                Exit();
+            }
             base.Update(gameTime);
         }
 
