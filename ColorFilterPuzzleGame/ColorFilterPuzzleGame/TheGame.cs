@@ -64,7 +64,6 @@ namespace ColorFilterPuzzleGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             thePlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(600, 200));
-<<<<<<< HEAD
 
             //Level One
             Platform[] onePlatforms = new Platform[4];
