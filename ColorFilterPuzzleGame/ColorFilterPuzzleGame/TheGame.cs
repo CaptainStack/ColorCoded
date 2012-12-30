@@ -21,11 +21,11 @@ namespace ColorFilterPuzzleGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        private Level levelOne;
+        private Level theLevel;
         //private Platform platformOne;
         private Player thePlayer;
         bool playerJump;
-        private Door end;
+        //private Door end;
 
         public TheGame()
         {
@@ -58,13 +58,23 @@ namespace ColorFilterPuzzleGame
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
-            Platform[] platforms = new Platform[3];
-            platforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 10, 20);
-            platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 100, 200);
-            platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 500);
-            end = new Door(Content.Load<Texture2D>("Door"), 1300, 350);
 
-            levelOne = new Level(Content.Load<Texture2D>("space"), platforms, end);
+            Platform[] levelOnePlatforms = new Platform[3];
+            levelOnePlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 10, 20);
+            levelOnePlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 100, 200);
+            levelOnePlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 500);
+            Door oneEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 350);
+            theLevel = new Level(Content.Load<Texture2D>("space"), levelOnePlatforms, oneEnd);
+
+            //KeyboardState keyState = Keyboard.GetState();
+
+            //Platform[] levelTwoPlatforms = new Platform[3];
+            //levelOnePlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 70, 30);
+            //levelOnePlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 150);
+            //levelOnePlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
+            //Door twoEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 100);
+            //levelTwo = new Level(Content.Load<Texture2D>("stars"), levelTwoPlatforms, twoEnd);
+
             thePlayer = new Player(Content.Load<Texture2D>("Player"), new Vector2(600, 200));
 
         }
@@ -90,6 +100,16 @@ namespace ColorFilterPuzzleGame
                 this.Exit();
             Platform[] platforms = new Platform[2];
             thePlayer.Update(platforms);
+            KeyboardState keyState = Keyboard.GetState();
+            if (keyState.IsKeyDown(Keys.M))
+            {
+                Platform[] levelTwoPlatforms = new Platform[3];
+                levelTwoPlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 70, 30);
+                levelTwoPlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 150);
+                levelTwoPlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
+                Door twoEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 100);
+                theLevel = new Level(Content.Load<Texture2D>("stars"), levelTwoPlatforms, twoEnd);
+            }
             base.Update(gameTime);
         }
 
@@ -101,7 +121,7 @@ namespace ColorFilterPuzzleGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            levelOne.Draw(spriteBatch);
+            theLevel.Draw(spriteBatch);
             thePlayer.Draw(spriteBatch);
             base.Draw(gameTime);
         }
