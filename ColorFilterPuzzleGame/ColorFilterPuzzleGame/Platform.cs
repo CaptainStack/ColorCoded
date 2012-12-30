@@ -12,7 +12,8 @@ namespace ColorFilterPuzzleGame
         private Texture2D ThisPlatform { get; set; }
         private int xPosition;
         private int yPosition;
-
+        public int permX;
+        public int permY;
         public float X
         {
             get { return (float)xPosition; }
@@ -38,6 +39,8 @@ namespace ColorFilterPuzzleGame
             ThisPlatform = platform;
             this.xPosition = xPosition;
             this.yPosition = yPosition;
+            permX = xPosition;
+            permY = yPosition;
         }
 
         public void Initialize()
@@ -55,5 +58,14 @@ namespace ColorFilterPuzzleGame
 
         }
 
+        public void setX(int newX)
+        {
+            xPosition = newX;
+        }
+
+        public void setY(int newY)
+        {
+            yPosition = newY;
+        }
     }
 }
