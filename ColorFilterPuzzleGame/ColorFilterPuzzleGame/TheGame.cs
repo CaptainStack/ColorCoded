@@ -70,7 +70,6 @@ namespace ColorFilterPuzzleGame
 
             thePlayer = new Player(Content.Load<Texture2D>("Player"), new Vector2(600, 200));
             theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer);      
-
         }
 
         /// <summary>
