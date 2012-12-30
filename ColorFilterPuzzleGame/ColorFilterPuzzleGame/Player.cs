@@ -19,8 +19,8 @@ namespace ColorFilterPuzzleGame
     {
         public const float GRAVITY = 7;
         public const float JUMP_SPEED = -7;
-        public const float MAX_JUMP_HEIGHT = 380;
-        public const int WINDOW_HEIGHT = 768;
+
+        public const float MAX_JUMP_HEIGHT = 150;
 
         public Texture2D Image { get; private set; }
         public Vector2 Location { get; set; }
