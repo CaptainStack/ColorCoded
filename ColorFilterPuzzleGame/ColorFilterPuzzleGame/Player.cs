@@ -35,7 +35,8 @@ namespace ColorFilterPuzzleGame
         // Atlas info
         private int Cols { get; set; }
         private int curFrame;
-
+        private int AtlasWidth;
+        private int AtlasHeight;
         // Jumping info
 
         private float jumpTravel;
@@ -50,16 +51,17 @@ namespace ColorFilterPuzzleGame
             Image = texture;
             jumpTravel = 0;
             jumping = false;
+            AtlasWidth = Image.Width / Cols;
+            AtlasHeight = Image.Height;
         }
 
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            int width = Image.Width / Cols;
-            int height = Image.Height;
+            
             int column = curFrame % Cols;
-            Rectangle sourceRectangle = new Rectangle(width * 2, 0, 330/6, height);
-            Rectangle destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, 330/6, height);
+            Rectangle sourceRectangle = new Rectangle(AtlasWidth * curFrame, 0, AtlasWidth, AtlasHeight);
+            Rectangle destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, AtlasWidth, AtlasHeight);
 
             spriteBatch.Begin();
             spriteBatch.Draw(Image, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(Width / 2, Height / 2), SpriteEffects.None, 1);
@@ -127,7 +129,7 @@ namespace ColorFilterPuzzleGame
                     v = new Vector2(v.X + dx, v.Y);
                 }
                 curFrame++;
-                if (curFrame == Cols - 1) curFrame = 0;
+                if (curFrame == Cols) curFrame = 0;
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
@@ -157,7 +159,7 @@ namespace ColorFilterPuzzleGame
             foreach (Platform risk in risks)
             {
 
-                if((new Rectangle((int)(Left + v.X), (int)(Top + v.Y), Width, Height))
+                if((new Rectangle((int)(Left + v.X), (int)(Top + v.Y), AtlasWidth, AtlasHeight))
                     .Intersects(new Rectangle((int)risk.X, (int)risk.Y, risk.Width, risk.Height))) 
                 {
                     theCollision = risk;

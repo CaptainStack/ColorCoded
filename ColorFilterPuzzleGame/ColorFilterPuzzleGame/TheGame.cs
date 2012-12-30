@@ -65,7 +65,7 @@ namespace ColorFilterPuzzleGame
             end = new Door(Content.Load<Texture2D>("Door"), 1300, 350);
             thePlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(600, 200));
 
-            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer, new Vector2(100, 100));
+            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer, new Vector2(400, 100));
 
         }
 
