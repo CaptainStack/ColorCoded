@@ -35,8 +35,8 @@ namespace ColorFilterPuzzleGame
         // Atlas info
         private int Cols { get; set; }
         private int curFrame;
-        public int AtlasWidth {get; private set;}
-        public int AtlasHeight { get; private set; }
+        public int AtlasWidth { get; private set; }
+        public int AtlasHeight;
         // Jumping info
 
         private float jumpTravel;
@@ -58,7 +58,7 @@ namespace ColorFilterPuzzleGame
 
         public void Draw(SpriteBatch spriteBatch)
         {
-            
+
             int column = curFrame % Cols;
             Rectangle sourceRectangle = new Rectangle(AtlasWidth * curFrame, 0, AtlasWidth, AtlasHeight);
             Rectangle destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, AtlasWidth, AtlasHeight);
@@ -68,7 +68,7 @@ namespace ColorFilterPuzzleGame
             spriteBatch.End();
         }
 
-        
+
         public void Update(Platform[] risks)
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -112,7 +112,7 @@ namespace ColorFilterPuzzleGame
             {
                 jumping = false;
                 jumpTravel = MAX_JUMP_HEIGHT;
-            }            
+            }
 
             if (keyState.IsKeyDown(Keys.Left))
             {
@@ -159,8 +159,8 @@ namespace ColorFilterPuzzleGame
             foreach (Platform risk in risks)
             {
 
-                if((new Rectangle((int)(Left + v.X), (int)(Top + v.Y), AtlasWidth, AtlasHeight))
-                    .Intersects(new Rectangle((int)risk.X, (int)risk.Y, risk.Width, risk.Height))) 
+                if ((new Rectangle((int)(Left + v.X), (int)(Top + v.Y), AtlasWidth, AtlasHeight))
+                    .Intersects(new Rectangle((int)risk.X, (int)risk.Y, risk.Width, risk.Height)))
                 {
                     theCollision = risk;
                 }
