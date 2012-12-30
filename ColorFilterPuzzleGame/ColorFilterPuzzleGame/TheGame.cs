@@ -97,6 +97,13 @@ namespace ColorFilterPuzzleGame
             end = levels[0].goal;
             platforms = levels[0].platforms;
             filterBlack();
+
+            SoundEffect bgEffect;
+            bgEffect = Content.Load<SoundEffect>("Song");
+            SoundEffectInstance instance = bgEffect.CreateInstance();
+            instance.IsLooped = true;
+            bgEffect.Play();
+
         }
 
         /// <summary>
