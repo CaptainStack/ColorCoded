@@ -35,8 +35,8 @@ namespace ColorFilterPuzzleGame
         // Atlas info
         private int Cols { get; set; }
         private int curFrame;
-        private int AtlasWidth;
-        private int AtlasHeight;
+        public int AtlasWidth {get; private set;}
+        public int AtlasHeight { get; private set; }
         // Jumping info
 
         private float jumpTravel;

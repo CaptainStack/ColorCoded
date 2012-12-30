@@ -69,7 +69,7 @@ namespace ColorFilterPuzzleGame
             end = new Door(Content.Load<Texture2D>("Door"), 1300, 350);
 
             thePlayer = new Player(Content.Load<Texture2D>("Player"), new Vector2(600, 200));
-            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer);      
+            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer, new Vector2(400, 400));      
         }
 
         /// <summary>
@@ -93,19 +93,21 @@ namespace ColorFilterPuzzleGame
                 this.Exit();
             thePlayer.Update(platforms);
             KeyboardState keyState = Keyboard.GetState();
-            if (keyState.IsKeyDown(Keys.M))
+            if (keyState.IsKeyDown(Keys.E))
             {
-                //Platform[] levelTwoPlatforms = new Platform[3];
-                platforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 70, 30);
-                platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 150);
-                platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
-                Door twoEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 100);
-                theLevel = new Level(Content.Load<Texture2D>("stars"), platforms, twoEnd, thePlayer, new Vector2(400, 400));
+                if(end.ImmediateCollision(thePlayer)){
+                    //Platform[] levelTwoPlatforms = new Platform[3];
+                    platforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 70, 30);
+                    platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 150);
+                    platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
+                    Door twoEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 100);
+                    theLevel = new Level(Content.Load<Texture2D>("stars"), platforms, twoEnd, thePlayer, new Vector2(100, 100));
+                }
             }
             if(keyState.IsKeyDown(Keys.Escape))
             {
                 Exit();
-            }
+            } 
             base.Update(gameTime);
         }
 

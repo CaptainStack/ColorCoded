@@ -31,5 +31,10 @@ namespace ColorFilterPuzzleGame
             sprite.End();
 
         }
+        public bool ImmediateCollision(Player thePlayer)
+        {
+            return (new Rectangle(X, Y, 64, 64))
+                .Intersects(new Rectangle((int)thePlayer.Left, (int)thePlayer.Top, thePlayer.AtlasWidth, thePlayer.AtlasHeight));
+        }
     }
 }
