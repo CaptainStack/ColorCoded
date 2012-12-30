@@ -15,14 +15,14 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ColorFilterPuzzleGame
 {
-    public class Player
+    class Player
     {
         public const float GRAVITY = 7;
         public const float JUMP_SPEED = -7;
         public const float MAX_JUMP_HEIGHT = 320;
         public const int WINDOW_HEIGHT = 768;
 
-        private Texture2D Image { get; set; }
+        public Texture2D Image { get; private set; }
         public Vector2 Location { get; set; }
         // Derived Properties
         public int Width { get { return Image.Width; } }
@@ -58,7 +58,7 @@ namespace ColorFilterPuzzleGame
             int width = Image.Width / Cols;
             int height = Image.Height;
             int column = curFrame % Cols;
-            Rectangle sourceRectangle = new Rectangle(width * column, height, width, height);
+            Rectangle sourceRectangle = new Rectangle(0 * width, 0, width, height);
 
             spriteBatch.Begin();
             spriteBatch.Draw(Image, Location, sourceRectangle, Color.White, (float)0, new Vector2(Width / 2, Height / 2), 1.0f, SpriteEffects.None, 1);
