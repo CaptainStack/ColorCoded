@@ -58,14 +58,15 @@ namespace ColorFilterPuzzleGame
             int width = Image.Width / Cols;
             int height = Image.Height;
             int column = curFrame % Cols;
-            Rectangle sourceRectangle = new Rectangle(0 * width, 0, width, height);
+            Rectangle sourceRectangle = new Rectangle(width * 2, 0, 330/6, height);
+            Rectangle destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, 330/6, height);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(Image, Location, sourceRectangle, Color.White, (float)0, new Vector2(Width / 2, Height / 2), 1.0f, SpriteEffects.None, 1);
+            spriteBatch.Draw(Image, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(Width / 2, Height / 2), SpriteEffects.None, 1);
             spriteBatch.End();
         }
 
-
+        
         public void Update(Platform[] risks)
         {
             KeyboardState keyState = Keyboard.GetState();
@@ -126,7 +127,7 @@ namespace ColorFilterPuzzleGame
                     v = new Vector2(v.X + dx, v.Y);
                 }
                 curFrame++;
-                if (curFrame == Cols) curFrame = 0;
+                if (curFrame == Cols - 1) curFrame = 0;
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
