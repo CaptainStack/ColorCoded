@@ -15,7 +15,7 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ColorFilterPuzzleGame
 {
-    class Player
+    public class Player
     {
         public const int TEST_GROUND_Y = 600;
         public const float GRAVITY = 7;
@@ -23,8 +23,8 @@ namespace ColorFilterPuzzleGame
         public const float MAX_JUMP_HEIGHT = 800;
         public const int WINDOW_HEIGHT = 768;
 
-        public Texture2D Image { get; private set; }
-        public Vector2 Location { get; private set; }
+        private Texture2D Image { get; set; }
+        public Vector2 Location { get; set; }
         // Derived Properties
         public int Width { get { return Image.Width; } }
         public int Height { get { return Image.Height; } }
