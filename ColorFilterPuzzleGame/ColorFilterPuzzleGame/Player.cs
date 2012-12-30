@@ -20,7 +20,7 @@ namespace ColorFilterPuzzleGame
         public const int TEST_GROUND_Y = 600;
         public const float GRAVITY = 7;
         public const float JUMP_SPEED = -7;
-        public const float MAX_JUMP_HEIGHT = 800;
+        public const float MAX_JUMP_HEIGHT = 300;
         public const int WINDOW_HEIGHT = 768;
 
         public Texture2D Image { get; private set; }
@@ -92,6 +92,7 @@ namespace ColorFilterPuzzleGame
             if (keyState.IsKeyUp(Keys.Up))
             {
                 jumping = false;
+                jumpTravel = MAX_JUMP_HEIGHT;
             }            
 
             if (keyState.IsKeyDown(Keys.Left))
@@ -150,17 +151,6 @@ namespace ColorFilterPuzzleGame
                         theCollision = risk;
                     }
             }
-        }
-
-        private float CollisionFall(Platform[] risks, float dy)
-        {
-            foreach(Platform risk in risks) {
-                if (Right > risk.X && Left < risk.X + risk.Width)
-                {
-                    if (Bottom + dy >= risk.Y) return risk.Y;
-                }
-            }
-            return WINDOW_HEIGHT;
         }
     }
 }
