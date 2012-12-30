@@ -64,6 +64,7 @@ namespace ColorFilterPuzzleGame
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
             thePlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(600, 200));
+<<<<<<< HEAD
 
             //Level One
             Platform[] onePlatforms = new Platform[4];
@@ -128,7 +129,23 @@ namespace ColorFilterPuzzleGame
             if(keyState.IsKeyDown(Keys.Escape))
             {
                 Exit();
-            } 
+            }
+            if (keyState.IsKeyDown(Keys.D1))
+            {
+                filterBlack();
+            }
+            if (keyState.IsKeyDown(Keys.D2))
+            {
+                platforms[0].setX(platforms[0].permX);
+                platforms[1].setX(platforms[1].permX);
+                platforms[2].setX(platforms[2].permX);
+                platforms[3].setX(platforms[3].permX);
+
+                platforms[0].setY(platforms[0].permY);
+                platforms[1].setY(platforms[1].permY);
+                platforms[2].setY(platforms[2].permY);
+                platforms[3].setY(platforms[3].permY);
+            }
             base.Update(gameTime);
         }
 
@@ -142,6 +159,15 @@ namespace ColorFilterPuzzleGame
 
             theLevel.Draw(spriteBatch);
             base.Draw(gameTime);
+        }
+
+        public void filterBlack()
+        {
+            foreach (Platform p in platforms)
+            {
+                p.setX(-100);
+                p.setY(-100);
+            }
         }
     }
 }
