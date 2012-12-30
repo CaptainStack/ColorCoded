@@ -73,7 +73,7 @@ namespace ColorFilterPuzzleGame
             onePlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 750, 400, true);
             onePlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
             onePlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 150, false);
-            levels[0] = new Level(Content.Load<Texture2D>("space"), onePlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 50), thePlayer, new Vector2(200, 200));
+            levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 50), thePlayer, new Vector2(200, 200));
             
             //Level Two
             Platform[] twoPlatforms = new Platform[3];
@@ -121,6 +121,10 @@ namespace ColorFilterPuzzleGame
                     platforms = theLevel.platforms;
                     end = theLevel.goal;
                 }
+                SoundEffect soundEffect;
+                soundEffect = Content.Load<SoundEffect>("Change9");
+                // Play the sound
+                soundEffect.Play();
             }
             if (keyState.IsKeyUp(Keys.E))
             {
@@ -144,6 +148,10 @@ namespace ColorFilterPuzzleGame
                     {
                         x.setX(x.permX);
                         x.setY(x.permY);
+                        SoundEffect soundEffect;
+                        soundEffect = Content.Load<SoundEffect>("Change4");
+                        // Play the sound
+                        soundEffect.Play();
                     }
                 }
             }
@@ -170,6 +178,7 @@ namespace ColorFilterPuzzleGame
                 {
                     p.setX(-100);
                     p.setY(-100);
+
                 }
             }
         }
