@@ -25,7 +25,7 @@ namespace ColorFilterPuzzleGame
         private int currentLevel;
 
         private Level theLevel;
-        private Player thePlayer;
+        Player thePlayer;
         private Door end;
         private Platform[] platforms;
 
@@ -67,10 +67,9 @@ namespace ColorFilterPuzzleGame
             platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 100, 200);
             platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 500);
             end = new Door(Content.Load<Texture2D>("Door"), 1300, 350);
-            thePlayer = new Player(Content.Load<Texture2D>("Player"), new Vector2(600, 200));
-            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer);
 
-            
+            thePlayer = new Player(Content.Load<Texture2D>("Player"), new Vector2(600, 200));
+            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer);      
 
         }
 
@@ -102,7 +101,7 @@ namespace ColorFilterPuzzleGame
                 platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 150);
                 platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
                 Door twoEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 100);
-                theLevel = new Level(Content.Load<Texture2D>("stars"), platforms, twoEnd);
+                theLevel = new Level(Content.Load<Texture2D>("stars"), platforms, twoEnd, thePlayer, new Vector2(400, 400));
             }
             if(keyState.IsKeyDown(Keys.Escape))
             {
