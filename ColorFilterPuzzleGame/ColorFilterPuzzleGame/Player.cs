@@ -15,15 +15,15 @@ using Microsoft.Xna.Framework.Media;
 
 namespace ColorFilterPuzzleGame
 {
-    class Player
+    public class Player
     {
         public const float GRAVITY = 7;
         public const float JUMP_SPEED = -7;
         public const float MAX_JUMP_HEIGHT = 320;
         public const int WINDOW_HEIGHT = 768;
 
-        public Texture2D Image { get; private set; }
-        public Vector2 Location { get; private set; }
+        private Texture2D Image { get; set; }
+        public Vector2 Location { get; set; }
         // Derived Properties
         public int Width { get { return Image.Width; } }
         public int Height { get { return Image.Height; } }
