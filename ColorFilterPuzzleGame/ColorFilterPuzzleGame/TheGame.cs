@@ -92,12 +92,12 @@ namespace ColorFilterPuzzleGame
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.M))
             {
-                Platform[] levelTwoPlatforms = new Platform[3];
-                levelTwoPlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 70, 30);
-                levelTwoPlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 150);
-                levelTwoPlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
+                //Platform[] levelTwoPlatforms = new Platform[3];
+                platforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 70, 30);
+                platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 150);
+                platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 250, 400);
                 Door twoEnd = new Door(Content.Load<Texture2D>("Door"), 1300, 100);
-                theLevel = new Level(Content.Load<Texture2D>("stars"), levelTwoPlatforms, twoEnd);
+                theLevel = new Level(Content.Load<Texture2D>("stars"), platforms, twoEnd);
             }
             base.Update(gameTime);
         }
