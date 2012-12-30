@@ -76,10 +76,21 @@ namespace ColorFilterPuzzleGame
             levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 50), thePlayer, new Vector2(200, 200));
             
             //Level Two
-            Platform[] twoPlatforms = new Platform[3];
-            twoPlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 700, true);
-            twoPlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 900, 600, false);
-            twoPlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 800, 500, true);
+            Platform[] twoPlatforms = new Platform[10];
+            twoPlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 0, 500, false);
+
+            twoPlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 300, 400, true);
+            twoPlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 600, true);
+            twoPlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 700, 450, true);
+
+            twoPlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 200, true);
+            twoPlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 300, true);
+            twoPlatforms[6] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 100, true);
+
+            twoPlatforms[7] = new Platform(Content.Load<Texture2D>("Platform2"), 850, 750, true);
+            twoPlatforms[8] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
+
+            twoPlatforms[9] = new Platform(Content.Load<Texture2D>("Platform2"), 1300, 200, false);
             levels[1] = new Level(Content.Load<Texture2D>("stars"), twoPlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 100), thePlayer, new Vector2(250, 382));
             
             theLevel = levels[0];
