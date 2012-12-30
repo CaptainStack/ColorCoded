@@ -21,14 +21,18 @@ namespace ColorFilterPuzzleGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        private Level[] levels;
+        private int currentLevel;
+
         private Level theLevel;
         private Player thePlayer;
         private Door end;
-        Platform[] platforms;
+        private Platform[] platforms;
 
 
         public TheGame()
         {
+            currentLevel = 0;
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferHeight = 768;
             graphics.PreferredBackBufferWidth = 1366;
@@ -63,9 +67,10 @@ namespace ColorFilterPuzzleGame
             platforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 100, 200);
             platforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 500);
             end = new Door(Content.Load<Texture2D>("Door"), 1300, 350);
-            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end);
-
             thePlayer = new Player(Content.Load<Texture2D>("Player"), new Vector2(600, 200));
+            theLevel = new Level(Content.Load<Texture2D>("space"), platforms, end, thePlayer);
+
+            
 
         }
 

@@ -12,13 +12,15 @@ namespace ColorFilterPuzzleGame
         private Texture2D Background { get; set; }
         private Platform[] platforms;
         private Door goal;
+        private Player myPlayer;
 
         //Test Comment
-        public Level(Texture2D background, Platform[] platform, Door door)
+        public Level(Texture2D background, Platform[] platform, Door door, Player p)
         {
             Background = background;
             platforms = platform;
             goal = door;
+            myPlayer = p;
         }
         public void Initialize()
         {
