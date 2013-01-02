@@ -38,6 +38,9 @@ namespace ColorFilterPuzzleGame
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferHeight = 768;
             graphics.PreferredBackBufferWidth = 1366;
+            graphics.PreferMultiSampling = false;
+            //graphics.IsFullScreen = true;
+
             Content.RootDirectory = "Content";
         }
 
@@ -73,7 +76,7 @@ namespace ColorFilterPuzzleGame
             onePlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 750, 400, true);
             onePlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
             onePlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 150, false);
-            levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 50), thePlayer, new Vector2(200, 200));
+            levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 85), thePlayer, new Vector2(200, 200));
             
             //Level Two
             Platform[] twoPlatforms = new Platform[10];
@@ -87,13 +90,13 @@ namespace ColorFilterPuzzleGame
             twoPlatforms[6] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 100, true);
             twoPlatforms[7] = new Platform(Content.Load<Texture2D>("Platform2"), 850, 750, true);
             twoPlatforms[8] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
-            twoPlatforms[9] = new Platform(Content.Load<Texture2D>("Platform2"), 1300, 200, false);
+            twoPlatforms[9] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 200, false);
 
-            levels[1] = new Level(Content.Load<Texture2D>("stars"), twoPlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 100), thePlayer, new Vector2(250, 382));
+            levels[1] = new Level(Content.Load<Texture2D>("background3"), twoPlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 135), thePlayer, new Vector2(250, 382));
             
             //Victory Screen
             Platform[] threePlatforms = new Platform[0];
-            levels[2] = new Level(Content.Load<Texture2D>("victory"), threePlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 100), thePlayer, new Vector2(250, 382));
+            levels[2] = new Level(Content.Load<Texture2D>("victory"), threePlatforms, new Door(Content.Load<Texture2D>("Door"), 2000, 100), thePlayer, new Vector2(250, 382));
 
             theLevel = levels[0];
             end = levels[0].goal;

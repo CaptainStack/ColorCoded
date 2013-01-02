@@ -76,13 +76,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlayerSprite.png">
-      <Name>PlayerSprite</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="background1.png">
       <Name>background1</Name>
       <Importer>TextureImporter</Importer>
@@ -90,20 +83,17 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Atomize.wav">
-      <Name>Atomize</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
+    <Compile Include="victory.jpg">
+      <Name>victory</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Change4.wav">
-      <Name>Change4</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
-    </Compile>
-    <Compile Include="Change9.wav">
-      <Name>Change9</Name>
-      <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PlayerSprite.png">
+      <Name>PlayerSprite</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -114,8 +104,22 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="victory.jpg">
-      <Name>victory</Name>
+    <Compile Include="Change4.wav">
+      <Name>Change4</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Change9.wav">
+      <Name>Change9</Name>
+      <Importer>WavImporter</Importer>
+      <Processor>SoundEffectProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="background3.png">
+      <Name>background3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>

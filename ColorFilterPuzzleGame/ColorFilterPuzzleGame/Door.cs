@@ -27,7 +27,7 @@ namespace ColorFilterPuzzleGame
         public void draw(SpriteBatch sprite)
         {
             sprite.Begin();
-            sprite.Draw(myDoor, new Rectangle(X, Y, 60, 100), Color.Red);
+            sprite.Draw(myDoor, new Rectangle(X, Y, 64, 64), Color.Brown);
             sprite.End();
 
         }
