@@ -37,6 +37,8 @@ namespace ColorFilterPuzzleGame
         private int curFrame;
         public int AtlasWidth { get; private set; }
         public int AtlasHeight;
+        private SpriteEffects flipped;
+
         // Jumping info
 
         private float jumpTravel;
@@ -64,7 +66,9 @@ namespace ColorFilterPuzzleGame
             Rectangle destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, AtlasWidth, AtlasHeight);
 
             spriteBatch.Begin();
-            spriteBatch.Draw(Image, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(Width / 2, Height / 2), SpriteEffects.None, 1);
+            //spriteBatch.Draw(Image, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(Width / 2, Height / 2), SpriteEffects.None, 1);
+            Vector2 origin = new Vector2(Width / 2, Height / 2);
+            spriteBatch.Draw(Image, destinationRectangle, sourceRectangle, Color.White, 0f, origin, flipped, 1);
             spriteBatch.End();
         }
 
@@ -116,6 +120,11 @@ namespace ColorFilterPuzzleGame
 
             if (keyState.IsKeyDown(Keys.Left))
             {
+                //Rotate sprite
+                flipped = SpriteEffects.FlipHorizontally;
+                
+              
+
                 // Horizontal-Left Collision Here
                 float dx = 5;
                 v = new Vector2(v.X - dx, v.Y);
@@ -133,6 +142,7 @@ namespace ColorFilterPuzzleGame
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
+                flipped = SpriteEffects.None;
                 // Horizontal-Right Collision Here
                 float dx = 5;
                 v = new Vector2(v.X + dx, v.Y);
