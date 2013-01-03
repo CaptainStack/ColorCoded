@@ -37,13 +37,8 @@ namespace ColorFilterPuzzleGame
         {
             levels = new Level[3];
             currentLevelNumber = 0;
-            graphics = new GraphicsDeviceManager(this);
-            graphics.PreferredBackBufferHeight = 768;
-            graphics.PreferredBackBufferWidth = 1366;
-            graphics.PreferMultiSampling = false;
-            //graphics.IsFullScreen = true;
-
             Content.RootDirectory = "Content";
+            Initialize();
         }
 
         /// <summary>
@@ -55,7 +50,14 @@ namespace ColorFilterPuzzleGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            if (graphics == null)
+            {
+                graphics = new GraphicsDeviceManager(this);
+                graphics.PreferredBackBufferHeight = 800;
+                graphics.PreferredBackBufferWidth = 1280;
+                graphics.PreferMultiSampling = false;
+                graphics.IsFullScreen = true;
+            }
             base.Initialize();
         }
 
@@ -82,7 +84,7 @@ namespace ColorFilterPuzzleGame
             onePlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 750, 400, true);
             onePlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
             onePlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 150, false);
-            Door doorOne = new Door(Content.Load<Texture2D>("Door"), 1300, 86);
+            Door doorOne = new Door(Content.Load<Texture2D>("Door"), 1200, 86);
             levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, doorOne, thePlayer, new Vector2(200, 200));
             
             //Level Two
@@ -98,7 +100,7 @@ namespace ColorFilterPuzzleGame
             twoPlatforms[8] = new Platform(Content.Load<Texture2D>("Platform2"), 950, 350, true);
             twoPlatforms[9] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 200, false);
 
-            Door doorTwo = new Door(Content.Load<Texture2D>("Door"), 1300, 136);
+            Door doorTwo = new Door(Content.Load<Texture2D>("Door"), 1200, 136);
             levels[1] = new Level(Content.Load<Texture2D>("background2"), twoPlatforms, doorTwo, thePlayer, new Vector2(250, 382));
             
             //Victory Screen
@@ -129,7 +131,6 @@ namespace ColorFilterPuzzleGame
         protected override void Update(GameTime gameTime)
         {
             thePlayer.Update(platforms);
-
             //Watch for the player to press E when on the door to advance to the next level
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.E))

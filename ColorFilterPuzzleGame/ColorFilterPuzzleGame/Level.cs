@@ -24,22 +24,20 @@ namespace ColorFilterPuzzleGame
             playerLocation = v;
             player.Location = v;
         }
-        public void Start(Vector2 v)
-        {
-            player.Location = v;
-        }
         public void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Begin();
             spriteBatch.Draw(Background, new Rectangle(0, 0, 1366, 768), Color.White);
-            spriteBatch.End();
+            ////spriteBatch.End();
 
+            door.Draw(spriteBatch);
             foreach (Platform x in platforms)
             {
                 x.Draw(spriteBatch);
             }
-            door.Draw(spriteBatch);
+            
             player.Draw(spriteBatch);
+            spriteBatch.End();
         }
     }
 }

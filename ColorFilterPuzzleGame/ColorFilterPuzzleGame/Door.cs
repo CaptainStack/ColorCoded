@@ -9,7 +9,7 @@ namespace ColorFilterPuzzleGame
 {
     public class Door
     {
-        private Texture2D myDoor { get; set; }
+        private readonly Texture2D myDoor;
         private int X;
         private int Y;
 
@@ -19,15 +19,11 @@ namespace ColorFilterPuzzleGame
             X = xPosition;
             Y = yPosition;
         }
-        public void Initialize()
-        {
-
-        }
         public void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Begin();
+            //spriteBatch.Begin();
             spriteBatch.Draw(myDoor, new Rectangle(X, Y, 64, 64), Color.White);
-            spriteBatch.End();
+            //spriteBatch.End();
 
         }
         public bool ImmediateCollision(Player thePlayer)

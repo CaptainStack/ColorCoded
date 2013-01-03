@@ -38,6 +38,7 @@ namespace ColorFilterPuzzleGame
         public int AtlasWidth { get; private set; }
         public int AtlasHeight;
         private SpriteEffects flipped;
+        private int counter = 0;
 
         // Jumping info
 
@@ -66,14 +67,14 @@ namespace ColorFilterPuzzleGame
             Rectangle destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, AtlasWidth, AtlasHeight);
             Vector2 origin = new Vector2(Width / 2, Height / 2);
 
-            spriteBatch.Begin();                        
+            //spriteBatch.Begin();                        
             spriteBatch.Draw(Image, destinationRectangle, sourceRectangle, Color.White, 0f, origin, flipped, 1);
-            spriteBatch.End();
+            //spriteBatch.End();
         }
 
 
         public void Update(Platform[] risks)
-        {
+        {            
             KeyboardState keyState = Keyboard.GetState();
 
             Vector2 v = new Vector2(0, GRAVITY);
@@ -105,7 +106,7 @@ namespace ColorFilterPuzzleGame
                     else
                     {
                         v = new Vector2(0, 0);
-                        jumpTravel = MAX_JUMP_HEIGHT;
+                        jumpTravel = MAX_JUMP_HEIGHT;                        
                     }
                     jumpTravel += Math.Abs(JUMP_SPEED);
                 }
@@ -116,7 +117,6 @@ namespace ColorFilterPuzzleGame
                 jumping = false;
                 jumpTravel = MAX_JUMP_HEIGHT;
             }
-
             if (keyState.IsKeyDown(Keys.Left))
             {
                 //Rotate sprite
@@ -136,8 +136,11 @@ namespace ColorFilterPuzzleGame
                 {
                     v = new Vector2(v.X + dx, v.Y);
                 }
-                curFrame++;
-                if (curFrame == Cols) curFrame = 0;
+                if (counter++ % 7 == 0)
+                {
+                    curFrame++;
+                    if (curFrame == Cols) curFrame = 0;
+                }
             }
             else if (keyState.IsKeyDown(Keys.Right))
             {
@@ -154,12 +157,13 @@ namespace ColorFilterPuzzleGame
                 {
                     v = new Vector2(v.X - dx, v.Y);
                 }
-                curFrame++;
-                if (curFrame == Cols) curFrame = 0;
+                if (counter++ % 7 == 0)
+                {
+                    curFrame++;
+                    if (curFrame == Cols) curFrame = 0;
+                }                
             }
-
             Location = new Vector2(Location.X + v.X, Location.Y + v.Y);
-
         }
 
         private void ImmediateCollisions(Platform[] risks, Vector2 v, out Platform theCollision)
@@ -167,7 +171,6 @@ namespace ColorFilterPuzzleGame
             theCollision = null;
             foreach (Platform risk in risks)
             {
-
                 if ((new Rectangle((int)(Left + v.X), (int)(Top + v.Y), AtlasWidth, AtlasHeight))
                     .Intersects(new Rectangle((int)risk.X, (int)risk.Y, risk.Width, risk.Height)))
                 {
