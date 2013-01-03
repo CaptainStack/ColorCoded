@@ -21,6 +21,9 @@ namespace ColorFilterPuzzleGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
+        //private Song
+        private Song song;
+
         private Level[] levels;
         private int currentLevel;
 
@@ -63,6 +66,10 @@ namespace ColorFilterPuzzleGame
         /// </summary>
         protected override void LoadContent()
         {
+            //Play the background music
+            song = Content.Load<Song>("SoundTrack");
+            MediaPlayer.Play(song);
+            MediaPlayer.IsRepeating = true;
 
             // Create a new SpriteBatch, which can be used to draw textures.
             spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -76,7 +83,8 @@ namespace ColorFilterPuzzleGame
             onePlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 750, 400, true);
             onePlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
             onePlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 150, false);
-            levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 85), thePlayer, new Vector2(200, 200));
+            Door doorOne = new Door(Content.Load<Texture2D>("Door"), 1300, 85);
+            levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, doorOne, thePlayer, new Vector2(200, 200));
             
             //Level Two
             Platform[] twoPlatforms = new Platform[10];
@@ -92,23 +100,18 @@ namespace ColorFilterPuzzleGame
             twoPlatforms[8] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
             twoPlatforms[9] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 200, false);
 
-            levels[1] = new Level(Content.Load<Texture2D>("background3"), twoPlatforms, new Door(Content.Load<Texture2D>("Door"), 1300, 135), thePlayer, new Vector2(250, 382));
+            Door doorTwo = new Door(Content.Load<Texture2D>("Door"), 1300, 135);
+            levels[1] = new Level(Content.Load<Texture2D>("background3"), twoPlatforms, doorTwo, thePlayer, new Vector2(250, 382));
             
             //Victory Screen
             Platform[] threePlatforms = new Platform[0];
-            levels[2] = new Level(Content.Load<Texture2D>("victory"), threePlatforms, new Door(Content.Load<Texture2D>("Door"), 2000, 100), thePlayer, new Vector2(250, 382));
+            Door doorThree = new Door(Content.Load<Texture2D>("Door"), 2000, 100);
+            levels[2] = new Level(Content.Load<Texture2D>("victory"), threePlatforms, doorThree, thePlayer, new Vector2(250, 382));
 
             theLevel = levels[0];
             end = levels[0].goal;
             platforms = levels[0].platforms;
             filterBlack();
-
-            SoundEffect bgEffect;
-            bgEffect = Content.Load<SoundEffect>("Song");
-            SoundEffectInstance instance = bgEffect.CreateInstance();
-            instance.IsLooped = true;
-            bgEffect.Play();
-
         }
 
         /// <summary>

@@ -64,11 +64,6 @@
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Player.png">
-      <Name>Player</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
     <Compile Include="space.jpg">
       <Name>space</Name>
       <Importer>TextureImporter</Importer>
@@ -90,17 +85,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlayerSprite.png">
-      <Name>PlayerSprite</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Song.wav">
-      <Name>Song</Name>
+    <Compile Include="SoundTrack.wav">
+      <Name>SoundTrack</Name>
       <Importer>WavImporter</Importer>
-      <Processor>SoundEffectProcessor</Processor>
+      <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -120,6 +108,13 @@
   <ItemGroup>
     <Compile Include="background3.png">
       <Name>background3</Name>
+      <Importer>TextureImporter</Importer>
+      <Processor>TextureProcessor</Processor>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="PlayerSprite.png">
+      <Name>PlayerSprite</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
