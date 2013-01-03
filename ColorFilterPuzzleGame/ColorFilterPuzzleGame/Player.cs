@@ -161,7 +161,11 @@ namespace ColorFilterPuzzleGame
                 {
                     curFrame++;
                     if (curFrame == Cols) curFrame = 0;
-                }                
+                }
+            }
+            else
+            {
+                curFrame = 3;
             }
             Location = new Vector2(Location.X + v.X, Location.Y + v.Y);
         }

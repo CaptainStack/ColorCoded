@@ -129,7 +129,7 @@ namespace ColorFilterPuzzleGame
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         protected override void Update(GameTime gameTime)
-        {
+        {            
             thePlayer.Update(platforms);
             //Watch for the player to press E when on the door to advance to the next level
             KeyboardState keyState = Keyboard.GetState();
