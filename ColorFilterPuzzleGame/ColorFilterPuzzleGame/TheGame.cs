@@ -21,13 +21,12 @@ namespace ColorFilterPuzzleGame
         GraphicsDeviceManager graphics;
         SpriteBatch spriteBatch;
 
-        //private Song
         private Song song;
 
         private Level[] levels;
-        private int currentLevel;
+        private int currentLevelNumber;
+        private Level currentLevel;
 
-        private Level theLevel;
         private Player thePlayer;
         private Door end;
         private Platform[] platforms;
@@ -37,7 +36,7 @@ namespace ColorFilterPuzzleGame
         public TheGame()
         {
             levels = new Level[3];
-            currentLevel = 0;
+            currentLevelNumber = 0;
             graphics = new GraphicsDeviceManager(this);
             graphics.PreferredBackBufferHeight = 768;
             graphics.PreferredBackBufferWidth = 1366;
@@ -83,33 +82,32 @@ namespace ColorFilterPuzzleGame
             onePlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 750, 400, true);
             onePlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
             onePlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 150, false);
-            Door doorOne = new Door(Content.Load<Texture2D>("Door"), 1300, 85);
+            Door doorOne = new Door(Content.Load<Texture2D>("Door"), 1300, 86);
             levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, doorOne, thePlayer, new Vector2(200, 200));
             
             //Level Two
             Platform[] twoPlatforms = new Platform[10];
             twoPlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 0, 500, false);
-
             twoPlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 300, 400, true);
             twoPlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 600, true);
             twoPlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 700, 450, true);
-            twoPlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 200, true);
-            twoPlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 300, true);
-            twoPlatforms[6] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 100, true);
-            twoPlatforms[7] = new Platform(Content.Load<Texture2D>("Platform2"), 850, 750, true);
-            twoPlatforms[8] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
+            twoPlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 200, false);
+            twoPlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 300, false);
+            twoPlatforms[6] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 100, false);
+            twoPlatforms[7] = new Platform(Content.Load<Texture2D>("Platform2"), 825, 700, true);
+            twoPlatforms[8] = new Platform(Content.Load<Texture2D>("Platform2"), 950, 350, true);
             twoPlatforms[9] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 200, false);
 
-            Door doorTwo = new Door(Content.Load<Texture2D>("Door"), 1300, 135);
-            levels[1] = new Level(Content.Load<Texture2D>("background3"), twoPlatforms, doorTwo, thePlayer, new Vector2(250, 382));
+            Door doorTwo = new Door(Content.Load<Texture2D>("Door"), 1300, 136);
+            levels[1] = new Level(Content.Load<Texture2D>("background2"), twoPlatforms, doorTwo, thePlayer, new Vector2(250, 382));
             
             //Victory Screen
             Platform[] threePlatforms = new Platform[0];
             Door doorThree = new Door(Content.Load<Texture2D>("Door"), 2000, 100);
             levels[2] = new Level(Content.Load<Texture2D>("victory"), threePlatforms, doorThree, thePlayer, new Vector2(250, 382));
 
-            theLevel = levels[0];
-            end = levels[0].goal;
+            currentLevel = levels[0];
+            end = levels[0].door;
             platforms = levels[0].platforms;
             filterBlack();
         }
@@ -139,13 +137,13 @@ namespace ColorFilterPuzzleGame
                 if(end.ImmediateCollision(thePlayer)){                 
                     if (canIncrease)
                     {
-                        currentLevel++;
+                        currentLevelNumber++;
                     }
                     canIncrease = false;
-                    theLevel = levels[currentLevel];
-                    thePlayer.Location = theLevel.playerLocation;
-                    platforms = theLevel.platforms;
-                    end = theLevel.goal;
+                    currentLevel = levels[currentLevelNumber];
+                    thePlayer.Location = currentLevel.playerLocation;
+                    platforms = currentLevel.platforms;
+                    end = currentLevel.door;
                 }
                 SoundEffect soundEffect;
                 soundEffect = Content.Load<SoundEffect>("Change9");
@@ -192,8 +190,7 @@ namespace ColorFilterPuzzleGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-
-            theLevel.Draw(spriteBatch);
+            currentLevel.Draw(spriteBatch);
             base.Draw(gameTime);
         }
 

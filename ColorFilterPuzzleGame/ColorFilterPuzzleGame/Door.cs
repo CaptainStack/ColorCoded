@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace ColorFilterPuzzleGame
 {
@@ -23,18 +23,19 @@ namespace ColorFilterPuzzleGame
         {
 
         }
-
-        public void draw(SpriteBatch sprite)
+        public void Draw(SpriteBatch spriteBatch)
         {
-            sprite.Begin();
-            sprite.Draw(myDoor, new Rectangle(X, Y, 64, 64), Color.Brown);
-            sprite.End();
+            spriteBatch.Begin();
+            spriteBatch.Draw(myDoor, new Rectangle(X, Y, 64, 64), Color.White);
+            spriteBatch.End();
 
         }
         public bool ImmediateCollision(Player thePlayer)
         {
-            return (new Rectangle(X, Y, 64, 64))
-                .Intersects(new Rectangle((int)thePlayer.Left, (int)thePlayer.Top, thePlayer.AtlasWidth, thePlayer.AtlasHeight));
+            return (new Rectangle(X, Y, 64, 64)).Intersects
+                (
+                    new Rectangle((int)thePlayer.Left, (int)thePlayer.Top, thePlayer.AtlasWidth, thePlayer.AtlasHeight)
+                );
         }
     }
 }

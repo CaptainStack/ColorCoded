@@ -64,10 +64,9 @@ namespace ColorFilterPuzzleGame
             int column = curFrame % Cols;
             Rectangle sourceRectangle = new Rectangle(AtlasWidth * curFrame, 0, AtlasWidth, AtlasHeight);
             Rectangle destinationRectangle = new Rectangle((int)Location.X, (int)Location.Y, AtlasWidth, AtlasHeight);
-
-            spriteBatch.Begin();
-            //spriteBatch.Draw(Image, destinationRectangle, sourceRectangle, Color.White, 0f, new Vector2(Width / 2, Height / 2), SpriteEffects.None, 1);
             Vector2 origin = new Vector2(Width / 2, Height / 2);
+
+            spriteBatch.Begin();                        
             spriteBatch.Draw(Image, destinationRectangle, sourceRectangle, Color.White, 0f, origin, flipped, 1);
             spriteBatch.End();
         }

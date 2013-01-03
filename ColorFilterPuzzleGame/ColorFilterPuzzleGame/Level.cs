@@ -11,38 +11,35 @@ namespace ColorFilterPuzzleGame
     {
         private Texture2D Background { get; set; }
         public Platform[] platforms;
-        public Door goal;
-        private Player thePlayer;
+        public Door door;
+        private Player player;
         public Vector2 playerLocation;
 
-        public Level(Texture2D background, Platform[] platform, Door door, Player p, Vector2 v)
+        public Level(Texture2D background, Platform[] platform, Door d, Player p, Vector2 v)
         {
             Background = background;
             platforms = platform;
-            goal = door;
-            thePlayer = p;
+            door = d;
+            player = p;
             playerLocation = v;
-            thePlayer.Location = v;
+            player.Location = v;
         }
         public void Start(Vector2 v)
         {
-            thePlayer.Location = v;
+            player.Location = v;
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-
             spriteBatch.Begin();
-
             spriteBatch.Draw(Background, new Rectangle(0, 0, 1366, 768), Color.White);
-
-
             spriteBatch.End();
+
             foreach (Platform x in platforms)
             {
                 x.Draw(spriteBatch);
             }
-            goal.draw(spriteBatch);
-            thePlayer.Draw(spriteBatch);
+            door.Draw(spriteBatch);
+            player.Draw(spriteBatch);
         }
     }
 }
