@@ -134,7 +134,7 @@ namespace ColorFilterPuzzleGame
             KeyboardState keyState = Keyboard.GetState();
             if (keyState.IsKeyDown(Keys.E))
             {
-                if(end.ImmediateCollision(thePlayer)){                 
+                if(end.ImmediateCollision(thePlayer)){              
                     if (canIncrease)
                     {
                         currentLevelNumber++;
@@ -144,11 +144,12 @@ namespace ColorFilterPuzzleGame
                     thePlayer.Location = currentLevel.playerLocation;
                     platforms = currentLevel.platforms;
                     end = currentLevel.door;
+
+                    // Play the sound effect
+                    SoundEffect soundEffect;
+                    soundEffect = Content.Load<SoundEffect>("Change9");                    
+                    soundEffect.Play();
                 }
-                SoundEffect soundEffect;
-                soundEffect = Content.Load<SoundEffect>("Change9");
-                // Play the sound
-                soundEffect.Play();
             }
             if (keyState.IsKeyUp(Keys.E))
             {
