@@ -21,10 +21,7 @@ namespace ColorFilterPuzzleGame
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Begin();
             spriteBatch.Draw(myDoor, new Rectangle(X, Y, 64, 64), Color.White);
-            //spriteBatch.End();
-
         }
         public bool ImmediateCollision(Player thePlayer)
         {

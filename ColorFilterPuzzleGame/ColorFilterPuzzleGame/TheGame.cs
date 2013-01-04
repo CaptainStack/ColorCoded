@@ -31,13 +31,17 @@ namespace ColorFilterPuzzleGame
         private Door end;
         private Platform[] platforms;
         private bool canIncrease;
+        private bool isFiltered;
+        private bool spacepress;
 
 
         public TheGame()
         {
-            levels = new Level[3];
+            levels = new Level[4];
             currentLevelNumber = 0;
             Content.RootDirectory = "Content";
+            isFiltered = false;
+            spacepress = false;
             Initialize();
         }
 
@@ -53,7 +57,7 @@ namespace ColorFilterPuzzleGame
             if (graphics == null)
             {
                 graphics = new GraphicsDeviceManager(this);
-                graphics.PreferredBackBufferHeight = 800;
+                graphics.PreferredBackBufferHeight = 768;
                 graphics.PreferredBackBufferWidth = 1280;
                 graphics.PreferMultiSampling = false;
                 graphics.IsFullScreen = true;
@@ -67,7 +71,7 @@ namespace ColorFilterPuzzleGame
         /// </summary>
         protected override void LoadContent()
         {
-            //Play the background music
+            //Play the background music on a loop
             song = Content.Load<Song>("SoundTrack");
             MediaPlayer.Play(song);
             MediaPlayer.IsRepeating = true;
@@ -76,16 +80,34 @@ namespace ColorFilterPuzzleGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             thePlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(0, 0));
 
+            //Tutorial
+            Platform[] tutorialPlatforms = new Platform[9];
+            tutorialPlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 0, 600, false);
+            tutorialPlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 200, 600, false);
+            tutorialPlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 400, 600, false);
+            tutorialPlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 600, 600, false);
+            tutorialPlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 800, 600, false);
+            tutorialPlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 600, false);
+            tutorialPlatforms[6] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 600, false);
+
+            tutorialPlatforms[7] = new Platform(Content.Load<Texture2D>("Platform2"), 540, 480, true);
+            tutorialPlatforms[8] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 150, true);
+
+            Door tempDoor = new Door(Content.Load<Texture2D>("Door"), 1200, 536);
+            Player tempPlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(200, 445));
+            levels[0] = new Level(Content.Load<Texture2D>("TutorialBackground"), tutorialPlatforms, tempDoor, tempPlayer);
+
             //Level One
-            Platform[] onePlatforms = new Platform[6];
-            onePlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 0, 500, false);
-            onePlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 300, 400, true);
-            onePlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 400, true);
-            onePlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 750, 400, true);
-            onePlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
-            onePlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 150, false);
-            Door doorOne = new Door(Content.Load<Texture2D>("Door"), 1200, 86);
-            levels[0] = new Level(Content.Load<Texture2D>("background1"), onePlatforms, doorOne, thePlayer, new Vector2(200, 200));
+            Platform[] tempPlatforms = new Platform[6];
+            tempPlatforms[0] = new Platform(Content.Load<Texture2D>("Platform2"), 0, 500, false);
+            tempPlatforms[1] = new Platform(Content.Load<Texture2D>("Platform2"), 300, 400, true);
+            tempPlatforms[2] = new Platform(Content.Load<Texture2D>("Platform2"), 500, 400, true);
+            tempPlatforms[3] = new Platform(Content.Load<Texture2D>("Platform2"), 750, 400, true);
+            tempPlatforms[4] = new Platform(Content.Load<Texture2D>("Platform2"), 1000, 300, true);
+            tempPlatforms[5] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 150, false);
+            tempDoor = new Door(Content.Load<Texture2D>("Door"), 1200, 86);
+            tempPlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(200, 445));
+            levels[1] = new Level(Content.Load<Texture2D>("background1"), tempPlatforms, tempDoor, tempPlayer);
             
             //Level Two
             Platform[] twoPlatforms = new Platform[10];
@@ -100,14 +122,17 @@ namespace ColorFilterPuzzleGame
             twoPlatforms[8] = new Platform(Content.Load<Texture2D>("Platform2"), 950, 350, true);
             twoPlatforms[9] = new Platform(Content.Load<Texture2D>("Platform2"), 1200, 200, false);
 
-            Door doorTwo = new Door(Content.Load<Texture2D>("Door"), 1200, 136);
-            levels[1] = new Level(Content.Load<Texture2D>("background2"), twoPlatforms, doorTwo, thePlayer, new Vector2(250, 382));
+            tempDoor = new Door(Content.Load<Texture2D>("Door"), 1200, 136);
+            tempPlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(250, 382));
+            levels[2] = new Level(Content.Load<Texture2D>("background2"), twoPlatforms, tempDoor, tempPlayer);
             
             //Victory Screen
             Platform[] threePlatforms = new Platform[0];
-            Door doorThree = new Door(Content.Load<Texture2D>("Door"), 2000, 100);
-            levels[2] = new Level(Content.Load<Texture2D>("victory"), threePlatforms, doorThree, thePlayer, new Vector2(250, 382));
+            tempDoor = new Door(Content.Load<Texture2D>("Door"), 2000, 100);
+            tempPlayer = new Player(Content.Load<Texture2D>("PlayerSprite"), new Vector2(-500, 800));
+            levels[3] = new Level(Content.Load<Texture2D>("victory"), threePlatforms, tempDoor, tempPlayer);
 
+            thePlayer = levels[0].player;
             currentLevel = levels[0];
             end = levels[0].door;
             platforms = levels[0].platforms;
@@ -142,7 +167,8 @@ namespace ColorFilterPuzzleGame
                     }
                     canIncrease = false;
                     currentLevel = levels[currentLevelNumber];
-                    thePlayer.Location = currentLevel.playerLocation;
+                    thePlayer = currentLevel.player;
+                    thePlayer.Location = currentLevel.player.Location;
                     platforms = currentLevel.platforms;
                     end = currentLevel.door;
 
@@ -161,27 +187,53 @@ namespace ColorFilterPuzzleGame
             if(keyState.IsKeyDown(Keys.Escape))
             {
                 Exit();
-            }
-            if (keyState.IsKeyDown(Keys.D1))
-            {               
-                filterBlack();
-            }
-            if (keyState.IsKeyDown(Keys.D2))
+            }            
+            if (keyState.IsKeyDown(Keys.Space) && spacepress == false)
             {
-                foreach (Platform x in platforms)
+                spacepress = true;
+                if (isFiltered)
                 {
-                    if (x.isRemovable)
-                    {
-                        x.setX(x.permX);
-                        x.setY(x.permY);
-                       
-                    }
+                    filterBlack();
+                    isFiltered = false;
                 }
-                SoundEffect soundEffect;
-                soundEffect = Content.Load<SoundEffect>("Change4");
-                // Play the sound
-                soundEffect.Play();
+                else
+                {
+                    foreach (Platform x in platforms)
+                    {
+                        if (x.isRemovable)
+                        {
+                            x.setX(x.permX);
+                            x.setY(x.permY);
+
+                        }
+                    }
+                    SoundEffect soundEffect;
+                    soundEffect = Content.Load<SoundEffect>("Change4");
+                    // Play the sound
+                    soundEffect.Play();
+                    isFiltered = true;
+                }
             }
+            if (keyState.IsKeyUp(Keys.Space))
+            {
+                spacepress = false;
+            }
+            //if (keyState.IsKeyDown(Keys.D2))
+            //{
+            //    foreach (Platform x in platforms)
+            //    {
+            //        if (x.isRemovable)
+            //        {
+            //            x.setX(x.permX);
+            //            x.setY(x.permY);
+                       
+            //        }
+            //    }
+            //    SoundEffect soundEffect;
+            //    soundEffect = Content.Load<SoundEffect>("Change4");
+            //    // Play the sound
+            //    soundEffect.Play();
+            //}
             base.Update(gameTime);
         }
 

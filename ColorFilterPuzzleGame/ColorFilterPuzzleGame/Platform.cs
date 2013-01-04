@@ -47,7 +47,6 @@ namespace ColorFilterPuzzleGame
         }
         public void Draw(SpriteBatch spriteBatch)
         {
-            //spriteBatch.Begin();
             if (isRemovable)
             {
                 spriteBatch.Draw(ThisPlatform, new Rectangle(xPosition, yPosition, 201, 57), Color.Green);
@@ -56,13 +55,11 @@ namespace ColorFilterPuzzleGame
             {
                 spriteBatch.Draw(ThisPlatform, new Rectangle(xPosition, yPosition, 201, 57), Color.White);
             }
-            //spriteBatch.End();
         }
         public void setX(int newX)
         {
             xPosition = newX;
         }
-
         public void setY(int newY)
         {
             yPosition = newY;
