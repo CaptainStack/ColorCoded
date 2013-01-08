@@ -13,7 +13,6 @@ namespace ColorFilterPuzzleGame
         public Platform[] platforms;
         public Door door;
         public Player player;
-        public Vector2 playerLocation;
 
         public Level(Texture2D background, Platform[] platform, Door d, Player p)
         {

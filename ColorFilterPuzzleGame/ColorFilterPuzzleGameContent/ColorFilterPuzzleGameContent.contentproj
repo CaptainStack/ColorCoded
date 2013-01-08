@@ -42,82 +42,75 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FakePlayer.png">
-      <Name>FakePlayer</Name>
-      <Importer>TextureImporter</Importer>
-      <Processor>TextureProcessor</Processor>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Door.png">
+    <Compile Include="Entities\Door.png">
       <Name>Door</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
-    <Compile Include="Platform2.png">
+    <Compile Include="Entities\Platform2.png">
       <Name>Platform2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="background1.png">
+    <Compile Include="Backgrounds\background1.png">
       <Name>background1</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="victory.jpg">
+    <Compile Include="Backgrounds\victory.jpg">
       <Name>victory</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SoundTrack.wav">
+    <Compile Include="Audio\SoundTrack.wav">
       <Name>SoundTrack</Name>
       <Importer>WavImporter</Importer>
       <Processor>SongProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Change4.wav">
+    <Compile Include="Audio\Change4.wav">
       <Name>Change4</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Change9.wav">
+    <Compile Include="Audio\Change9.wav">
       <Name>Change9</Name>
       <Importer>WavImporter</Importer>
       <Processor>SoundEffectProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="background3.png">
+    <Compile Include="Backgrounds\background3.png">
       <Name>background3</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Background2.png">
+    <Compile Include="Backgrounds\Background2.png">
       <Name>Background2</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="PlayerSprite.png">
+    <Compile Include="Entities\PlayerSprite.png">
       <Name>PlayerSprite</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TutorialBackground.png">
+    <Compile Include="Backgrounds\TutorialBackground.png">
       <Name>TutorialBackground</Name>
       <Importer>TextureImporter</Importer>
       <Processor>TextureProcessor</Processor>
