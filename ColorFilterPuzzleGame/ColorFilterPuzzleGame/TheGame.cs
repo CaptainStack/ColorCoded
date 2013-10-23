@@ -60,7 +60,7 @@ namespace ColorFilterPuzzleGame
                 graphics.PreferredBackBufferHeight = 768;
                 graphics.PreferredBackBufferWidth = 1280;
                 graphics.PreferMultiSampling = false;
-                graphics.IsFullScreen = true;
+                //graphics.IsFullScreen = true;
             }
             base.Initialize();
         }
@@ -80,7 +80,7 @@ namespace ColorFilterPuzzleGame
             spriteBatch = new SpriteBatch(GraphicsDevice);
             thePlayer = new Player(Content.Load<Texture2D>("Entities/PlayerSprite"), new Vector2(0, 0));
 
-            //Tutorial
+            //Tutorial splashscreen
             Platform[] tutorialPlatforms = new Platform[9];
             tutorialPlatforms[0] = new Platform(Content.Load<Texture2D>("Entities/Platform2"), 0, 600, false);
             tutorialPlatforms[1] = new Platform(Content.Load<Texture2D>("Entities/Platform2"), 200, 600, false);
